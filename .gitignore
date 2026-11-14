@@ -33,3 +33,6 @@ AGENTS.md
 .cursor/
 .cursorrules
 *.pen
+
+# The pitch deck is submitted separately as a PDF.
+*.pdf
