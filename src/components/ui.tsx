@@ -44,3 +44,12 @@ export function Lines({ items }: { items: LineItem[] }) {
     </dl>
   )
 }
+
+/** One line under a tab saying what the tab is for. */
+export function TabNote({ children }: { children: ReactNode }) {
+  return (
+    <p className="muted" style={{ marginBottom: 16 }}>
+      {children}
+    </p>
+  )
+}

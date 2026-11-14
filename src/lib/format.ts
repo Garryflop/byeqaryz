@@ -19,3 +19,7 @@ export function duration(months: number): string {
 
 /** Calendar month that is `months` from today, e.g. "Mar 2036". */
 export const monthFromNow = (months: number) => dayjs().add(months, 'month').format('MMM YYYY')
+
+/** A step in a payment breakdown: text as it is, deductions with a minus sign. */
+export const signedUsd = (v: number | string) =>
+  typeof v === 'string' ? v : v < 0 ? `- ${usd(-v)}` : usd(v)

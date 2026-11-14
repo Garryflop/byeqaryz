@@ -2,19 +2,8 @@ import { BRAND } from '../brand'
 import { PLAN_NAMES } from '../engine/compare'
 import { explainPayment } from '../engine/explain'
 import type { Borrower, Comparison, PlanResult } from '../engine/types'
-import { duration, monthFromNow, usd } from './format'
-
-function save(filename: string, text: string, type: string) {
-  const url = URL.createObjectURL(new Blob([text], { type }))
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  link.click()
-  URL.revokeObjectURL(url)
-}
-
-const stepValue = (v: number | string) =>
-  typeof v === 'string' ? v : v < 0 ? `- ${usd(-v)}` : usd(v)
+import { saveFile } from './download'
+import { duration, monthFromNow, signedUsd, usd } from './format'
 
 /** The borrower's plan as a plain-text file they can keep or print. */
 export function buildPlanText(
@@ -35,7 +24,7 @@ export function buildPlanText(
     plan.taxOnForgiven > 0 ? `Estimated tax on forgiveness: ${usd(plan.taxOnForgiven)}` : '',
     '',
     'HOW THE PAYMENT IS CALCULATED',
-    ...explainPayment(plan.id, b).map((s) => `  ${s.label}: ${stepValue(s.value)}`),
+    ...explainPayment(plan.id, b).map((s) => `  ${s.label}: ${signedUsd(s.value)}`),
     '',
     'ALL PLANS OPEN TO YOU',
     ...comparison.results.map(
@@ -57,8 +46,8 @@ export function buildPlanText(
   return lines.filter((l, i) => l !== '' || lines[i - 1] !== '').join('\n')
 }
 
-export const downloadPlan = (text: string) => save('byeqaryz-plan.txt', text, 'text/plain')
+export const downloadPlan = (text: string) => saveFile('byeqaryz-plan.txt', text, 'text/plain')
 
 /** Everything saved in this browser, as a file the borrower keeps themselves. */
 export const downloadBackup = (state: unknown) =>
-  save('byeqaryz-backup.json', JSON.stringify(state, null, 2), 'application/json')
+  saveFile('byeqaryz-backup.json', JSON.stringify(state, null, 2), 'application/json')

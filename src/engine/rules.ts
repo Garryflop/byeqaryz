@@ -90,6 +90,9 @@ export const TIERED_STANDARD: ReadonlyArray<readonly [number, number]> = [
   [Infinity, 300],
 ]
 
+/** The older income-driven plans (PAYE, ICR) close on this date (Public Law 119-21). */
+export const LEGACY_PLANS_CLOSE = '2028-07-01'
+
 /** Public Service Loan Forgiveness: 120 qualifying payments, tax-free. */
 export const PSLF_MONTHS = 120
 

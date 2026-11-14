@@ -7,11 +7,8 @@ import { explainPayment } from '../engine/explain'
 import { STATES } from '../engine/rules'
 import { tenYearStandardMonthly } from '../engine/simulate'
 import type { Borrower, PlanResult } from '../engine/types'
-import { usd } from '../lib/format'
+import { signedUsd, usd } from '../lib/format'
 import { usePlans, useStore } from '../state/store'
-
-const stepValue = (v: number | string) =>
-  typeof v === 'string' ? v : v < 0 ? `- ${usd(-v)}` : usd(v)
 
 const FILING = {
   single: 'Single',
@@ -92,7 +89,7 @@ export function Understand() {
               <Lines
                 items={steps.map((s) => ({
                   label: s.label,
-                  value: stepValue(s.value),
+                  value: signedUsd(s.value),
                   total: s.result,
                 }))}
               />

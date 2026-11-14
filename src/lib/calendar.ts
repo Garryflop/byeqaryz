@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { saveFile } from './download'
 
 export interface Reminder {
   /** ISO date (YYYY-MM-DD) of the all-day event. */
@@ -69,12 +70,5 @@ export function buildIcs(reminders: Reminder[]): string {
   ].join('\r\n')
 }
 
-export function downloadIcs(reminders: Reminder[], filename = 'loan-deadlines.ics') {
-  const blob = new Blob([buildIcs(reminders)], { type: 'text/calendar' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  link.click()
-  URL.revokeObjectURL(url)
-}
+export const downloadIcs = (reminders: Reminder[], filename = 'loan-deadlines.ics') =>
+  saveFile(filename, buildIcs(reminders), 'text/calendar')
