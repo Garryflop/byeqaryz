@@ -3,6 +3,8 @@
 Compare US federal student loan repayment plans, see how every number is
 calculated, and get a plan you can act on.
 
+**Live product: [byeqaryz.onrender.com](https://byeqaryz.onrender.com)**
+
 ![Intro screen: "Know your options. Pay with a plan."](docs/screens/0-intro.png)
 
 The repayment rules changed in 2026: the SAVE plan ended and the Repayment
